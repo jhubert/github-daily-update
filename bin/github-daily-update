@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
+$LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
+
+def prompt(*args)
+  print(*args)
+  gets.chomp
+end
+
+if ENV['GITHUB_USERNAME'].nil?
+  ENV['GITHUB_USERNAME'] = prompt('GitHub Username: ')
+end
+
+if ENV['GITHUB_PASSWORD'].nil?
+  ENV['GITHUB_PASSWORD'] = prompt('GitHub Password: ')
+end
+
+if ENV['GITHUB_ORG'].nil?
+  ENV['GITHUB_ORG'] = prompt('GitHub Org: ')
+end
+
+require 'github_daily_update'
+
+puts 'Generating Report...'
+daily_update = GithubDailyUpdate::Report.new(org: ENV['GITHUB_ORG'])
+puts daily_update.generate.join("\n")
