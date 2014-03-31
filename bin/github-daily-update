@@ -20,8 +20,15 @@ if ENV['GITHUB_ORG'].nil?
   ENV['GITHUB_ORG'] = prompt('GitHub Org: ')
 end
 
+if ENV['DAY_SPAN'].nil?
+  ENV['DAY_SPAN'] = prompt('How many days back? (1): ') || 1
+end
+
 require 'github_daily_update'
 
 puts 'Generating Report...'
-daily_update = GithubDailyUpdate::Report.new(org: ENV['GITHUB_ORG'])
-puts daily_update.generate.join("\n")
+daily_update = GithubDailyUpdate::Report.new(
+                 org: ENV['GITHUB_ORG'],
+                 day_span: ENV['DAY_SPAN'].to_i
+               )
+puts daily_update.generate.join("\n\n")

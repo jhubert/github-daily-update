@@ -21,10 +21,14 @@ class GithubDailyUpdate::Reporter::Merged < GithubDailyUpdate::Reporter::Base
 
   def merged_pull_requests
     Octokit.organization_events(options[:org]).select do |e|
-      e.created_at > (Time.now - (60 * 60 * 24)) &&
+      e.created_at > (Time.now - time_span) &&
       e.type == 'PullRequestEvent' &&
       e.payload.action == 'closed' &&
       e.payload.pull_request.merged
     end
+  end
+
+  def time_span
+    60 * 60 * 24 * (options[:day_span].to_i || 1)
   end
 end
