@@ -1,4 +1,5 @@
 # GitHub Daily Update
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/jhubert/github-daily-update?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 I have found that a daily update of what was merged in the last 24 hours and what pull requests are open is useful in daily standups. 
 
